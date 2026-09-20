@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>鸡你太美 · 陈新峄原声终极典藏版 (IKUN Pro Studio)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    @keyframes neonPulse {
+      0%, 100% { text-shadow: 0 0 12px #f43f5e, 0 0 25px #f43f5e, 0 0 50px #db2777; }
+      50% { text-shadow: 0 0 20px #38bdf8, 0 0 35px #0284c7, 0 0 70px #06b6d4; }
+    }
+    @keyframes stageShake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-4px, 5px) rotate(-1.5deg); }
+      40% { transform: translate(4px, -3px) rotate(1.5deg); }
+      60% { transform: translate(-3px, -4px) rotate(-1deg); }
+      80% { transform: translate(3px, 4px) rotate(1deg); }
+    }
+    @keyframes chickenFloat {
+      0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 0.9; }
+      100% { transform: translateY(-130vh) rotate(720deg) scale(1.3); opacity: 0; }
+    }
+    @keyframes shoulderShrug {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-16px) rotate(-4deg); }
+      75% { transform: translateY(-16px) rotate(4deg); }
+    }
+    @keyframes ironLean {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      40% { transform: translate(45px, -15px) rotate(18deg) scaleX(1.1); }
+      60% { transform: translate(-35px, -10px) rotate(-14deg) scaleX(1.05); }
+    }
+    @keyframes fastDribble {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(0.96, 1.04); }
+    }
+    @keyframes ballCrotchBounce {
+      0% { transform: translate(-50%, 0) rotate(0deg); }
+      35% { transform: translate(-20%, 95px) scale(1.2, 0.7); }
+      65% { transform: translate(-80%, 95px) scale(0.7, 1.2); }
+      100% { transform: translate(-50%, 0) rotate(360deg); }
+    }
+    @keyframes danmakuRun {
+      0% { transform: translateX(105vw); }
+      100% { transform: translateX(-160%); }
+    }
+    .neon-glow { animation: neonPulse 2.4s infinite alternate; }
+    .anim-shake { animation: stageShake 0.12s infinite; }
+    .pose-shrug { animation: shoulderShrug 0.4s ease-in-out infinite alternate !important; }
+    .pose-iron { animation: ironLean 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) infinite !important; }
+    .pose-dribble { animation: fastDribble 0.28s ease-in-out infinite alternate !important; }
+    .ball-active { animation: ballCrotchBounce 0.4s ease-in-out infinite !important; }
+    .danmaku-item {
+      position: absolute;
+      white-space: nowrap;
+      animation: danmakuRun linear forwards;
+      pointer-events: none;
+      font-weight: 900;
+    }
+    .laser-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(244, 63, 94, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.12) 1px, transparent 1px);
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden select-none font-sans">
+
+  <div id="laser-overlay" class="fixed inset-0 laser-grid pointer-events-none z-10 opacity-70"></div>
+  <div id="fx-stage-lights" class="fixed inset-0 pointer-events-none z-10 opacity-0 transition-opacity duration-300 bg-radial-at-c from-rose-600/30 via-transparent to-transparent"></div>
+  <div id="danmaku-box" class="fixed inset-0 pointer-events-none z-30 overflow-hidden"></div>
+  <div id="roast-chickens-box" class="fixed inset-0 pointer-events-none z-20 overflow-hidden"></div>
+
+  <header class="relative z-40 bg-slate-900/90 backdrop-blur-md border-b border-rose-500/25 px-4 py-3 flex flex-wrap items-center justify-between gap-3 shadow-2xl">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-500 via-amber-400 to-sky-400 flex items-center justify-center text-2xl shadow-lg shadow-rose-500/30">
+        🐔
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-base sm:text-lg font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-300 to-sky-400">
+            鸡你太美 · 陈新峄原声专业版
+          </h1>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">IKUN V2.5</span>
+        </div>
+        <p class="text-xs text-slate-400">只因你太美原曲 · 原声采样 · 铁山靠暴走</p>
+      </div>
+    </div>
+
+    <!-- Live controls & BGM Playback bar -->
+    <div class="flex items-center gap-2 sm:gap-4 flex-wrap">
+      <!-- Combo Meter -->
+      <div class="bg-slate-800/90 border border-slate-700/80 px-3 py-1.5 rounded-xl flex items-center gap-2">
+        <span class="text-xs text-slate-400">狂欢连击</span>
+        <span id="combo-stat" class="text-amber-400 font-extrabold text-sm sm:text-base">0x</span>
+      </div>
+
+      <!-- Practice Time -->
+      <div class="bg-slate-800/90 border border-slate-700/80 px-3 py-1.5 rounded-xl flex items-center gap-2">
+        <span class="text-xs text-slate-400">练习时长</span>
+        <span id="trainee-timer" class="text-rose-400 font-mono font-bold text-xs sm:text-sm">2年半 00:00</span>
+      </div>
+
+      <!-- Main BGM Switcher -->
+      <button id="btn-master-bgm" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:brightness-110 font-black text-xs sm:text-sm shadow-lg shadow-rose-500/40 flex items-center gap-2 active:scale-95 transition">
+        <i class="ph-bold ph-play-circle text-lg" id="bgm-play-icon"></i>
+        <span id="bgm-btn-text">只因你太美 BGM</span>
+      </button>
+
+      <!-- Audio Source Toggle / Status Pill -->
+      <div id="audio-source-badge" class="text-[11px] px-2.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 font-medium" title="音频双备份：优先原曲直链，若失效自动无缝切至Web Audio全真合成器">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="audio-source-name">原生双擎驱动</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative flex-1 flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden" id="main-stage">
+    
+    <!-- Title Headline -->
+    <div class="relative z-20 text-center my-2 pointer-events-none">
+      <div class="text-3xl sm:text-5xl md:text-6xl font-black tracking-widest neon-glow font-mono uppercase">
+        SWIN · 只因你太美
+      </div>
+      <p class="text-xs sm:text-sm text-sky-400/90 font-bold tracking-widest mt-1">
+        ★ CHEN XINYI PARODY EDITION ★
+      </p>
+    </div>
+
+    <!-- Character & Ball Playground -->
+    <div class="relative z-20 flex flex-col items-center justify-center w-full max-w-lg min-h-[350px]">
+      
+      <!-- Speech Quote Bubble -->
+      <div id="stage-quote" class="absolute -top-6 bg-slate-900/95 text-amber-300 border-2 border-amber-400 px-4 py-1 rounded-2xl text-xs sm:text-sm font-black shadow-xl shadow-amber-500/30 opacity-0 transition-all duration-200 z-40 transform -translate-y-2">
+        你干嘛～～哎呦～～！
+      </div>
+
+      <!-- Character Stage Shell -->
+      <div id="char-pod" class="relative cursor-pointer select-none transition-transform" title="点击暴风运球 / 触发原声！">
+        <div id="character-svg-box" class="pose-shrug relative w-64 h-72 sm:w-72 sm:h-80 mx-auto">
+          <svg viewBox="0 0 300 360" class="w-full h-full drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]">
+            <defs>
+              <linearGradient id="clothGrey" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#64748b" />
+                <stop offset="100%" stop-color="#334155" />
+              </linearGradient>
+              <radialGradient id="basketballGrad" cx="30%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#fb923c" />
+                <stop offset="65%" stop-color="#ea580c" />
+                <stop offset="100%" stop-color="#9a3412" />
+              </radialGradient>
+            </defs>
+
+            <!-- Ground Shadow -->
+            <ellipse cx="150" cy="345" rx="85" ry="14" fill="rgba(0,0,0,0.5)" class="blur-sm" />
+
+            <!-- Blue Striped Inner Shirt (经典内搭) -->
+            <path d="M100 160 Q150 150 200 160 L210 260 L90 260 Z" fill="#2563eb" />
+            <path d="M96 185 Q150 178 204 185" stroke="#ffffff" stroke-width="7" stroke-linecap="round" />
+            <path d="M93 215 Q150 208 207 215" stroke="#ffffff" stroke-width="7" stroke-linecap="round" />
+            <path d="M90 245 Q150 238 210 245" stroke="#ffffff" stroke-width="7" stroke-linecap="round" />
+
+            <!-- Pants Legs & Shoes -->
+            <rect x="110" y="270" width="34" height="65" rx="8" fill="#334155" />
+            <rect x="156" y="270" width="34" height="65" rx="8" fill="#334155" />
+            <ellipse cx="125" cy="335" rx="20" ry="8" fill="#0f172a" />
+            <ellipse cx="175" cy="335" rx="20" ry="8" fill="#0f172a" />
+
+            <!-- Suspenders Overalls (经典背带裤) -->
+            <path d="M105 230 L195 230 L190 290 L110 290 Z" fill="url(#clothGrey)" />
+            <!-- Left & Right Suspenders -->
+            <path id="strap-left" d="M112 160 L122 235" stroke="#475569" stroke-width="12" stroke-linecap="round" />
+            <path id="strap-right" d="M188 160 L178 235" stroke="#475569" stroke-width="12" stroke-linecap="round" />
+            <rect x="115" y="222" width="14" height="10" rx="2" fill="#cbd5e1" />
+            <rect x="171" y="222" width="14" height="10" rx="2" fill="#cbd5e1" />
+
+            <!-- Arms in Hip-hop Stance -->
+            <path id="left-arm" d="M95 170 Q55 210 75 240 Q85 245 95 220" fill="none" stroke="#fed7aa" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+            <path id="right-arm" d="M205 170 Q245 210 225 240" fill="none" stroke="#fed7aa" stroke-width="16" stroke-linecap="round" />
+            <circle cx="225" cy="245" r="9" fill="#fed7aa" />
+
+            <!-- Neck -->
+            <rect x="138" y="140" width="24" height="25" rx="6" fill="#fed7aa" />
+
+            <!-- Head Face (陈新峄传神小表情) -->
+            <ellipse id="face-skin" cx="150" cy="115" rx="43" ry="46" fill="#fde047" />
+            <circle cx="106" cy="115" r="8" fill="#fde047" />
+            <circle cx="194" cy="115" r="8" fill="#fde047" />
+
+            <!-- Facial Expression (Eyebrows, Eyes, Smirk) -->
+            <g id="facial-features">
+              <path d="M125 96 Q135 90 144 96" stroke="#0f172a" stroke-width="3" stroke-linecap="round" fill="none" />
+              <path d="M156 96 Q165 90 175 96" stroke="#0f172a" stroke-width="3" stroke-linecap="round" fill="none" />
+              <!-- Eyes with playful twinkle -->
+              <ellipse cx="134" cy="108" rx="6" ry="7" fill="#0f172a" />
+              <ellipse cx="166" cy="108" rx="6" ry="7" fill="#0f172a" />
+              <circle cx="136" cy="106" r="2" fill="#ffffff" />
+              <circle cx="168" cy="106" r="2" fill="#ffffff" />
+              <!-- Cheek Blushes -->
+              <ellipse cx="121" cy="122" rx="7" ry="5" fill="#f43f5e" opacity="0.55" />
+              <ellipse cx="179" cy="122" rx="7" ry="5" fill="#f43f5e" opacity="0.55" />
+              <!-- Playful Mouth -->
+              <path id="mouth-shape" d="M140 128 Q150 140 160 126" stroke="#991b1b" stroke-width="4" stroke-linecap="round" fill="none" />
+            </g>
+
+            <!-- Signature Middle-Part Silver Hair (中分银灰发型) -->
+            <g id="middle-part-hair">
+              <!-- Left Curtain -->
+              <path d="M150 72 C122 58 88 84 94 122 C102 98 122 84 148 81 Z" fill="#94a3b8" />
+              <!-- Right Curtain -->
+              <path d="M150 72 C178 58 212 84 206 122 C198 98 178 84 152 81 Z" fill="#94a3b8" />
+              <!-- Crown Tuft -->
+              <path d="M110 80 Q150 60 190 80 Q150 67 110 80 Z" fill="#cbd5e1" />
+            </g>
+
+            <!-- Sunglasses Overlay -->
+            <g id="costume-glasses" class="hidden">
+              <rect x="119" y="100" width="28" height="19" rx="4" fill="#020617" stroke="#e2e8f0" stroke-width="2" />
+              <rect x="153" y="100" width="28" height="19" rx="4" fill="#020617" stroke="#e2e8f0" stroke-width="2" />
+              <path d="M146 108 L154 108" stroke="#cbd5e1" stroke-width="3" />
+              <path d="M123 103 L132 115" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" />
+              <path d="M157 103 L166 115" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" />
+            </g>
+
+            <!-- Roasted Chicken Headgear (梗图图腾) -->
+            <g id="costume-chicken-comb" class="hidden">
+              <path d="M136 68 Q140 40 150 56 Q160 38 164 66 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="2" />
+              <polygon points="146,120 154,120 150,132" fill="#ea580c" />
+            </g>
+          </svg>
+
+          <!-- The Iconic Basketball -->
+          <div id="ball-interactive" class="ball-active absolute bottom-10 right-0 w-16 h-16 rounded-full shadow-2xl cursor-pointer">
+            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl">
+              <circle cx="50" cy="50" r="48" fill="url(#basketballGrad)" stroke="#0f172a" stroke-width="4.5" />
+              <path d="M2 50 H98" stroke="#0f172a" stroke-width="4.5" fill="none" />
+              <path d="M50 2 V98" stroke="#0f172a" stroke-width="4.5" fill="none" />
+              <path d="M16 16 C38 36 38 64 16 84" stroke="#0f172a" stroke-width="4.5" fill="none" />
+              <path d="M84 16 C62 36 62 64 84 84" stroke="#0f172a" stroke-width="4.5" fill="none" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Mode Quick Selector (Chen Xinyi Classic Actions) -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-3 z-20">
+        <button id="btn-pose-shrug" class="pose-btn active px-3.5 py-1.5 bg-rose-600 text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95">
+          🕺 经典耸肩
+        </button>
+        <button id="btn-pose-iron" class="pose-btn px-3.5 py-1.5 bg-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95">
+          💥 铁山靠暴走
+        </button>
+        <button id="btn-pose-dribble" class="pose-btn px-3.5 py-1.5 bg-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-bold shadow-md transition active:scale-95">
+          🏀 胯下运球打桩
+        </button>
+        <button id="btn-meme-sticker" class="px-3.5 py-1.5 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-amber-300 rounded-xl text-xs font-bold transition active:scale-95 flex items-center gap-1">
+          🐾 召唤黑子鸡脚
+        </button>
+        <button id="btn-toggle-glasses" class="px-3.5 py-1.5 bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition active:scale-95">
+          🕶️ 变装切换
+        </button>
+      </div>
+
+      <div class="mt-2 text-[11px] text-slate-400 text-center">
+        💡 提示：按住 <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-amber-300">Space空格键</kbd> 或长按人物可启动 <span class="text-rose-400 font-bold">铁山靠暴走连击模式</span>！
+      </div>
+
+    </div>
+
+    <!-- Audio Visualizer Spectrum Bar -->
+    <div class="w-full max-w-xl h-10 mt-3 bg-slate-900/80 rounded-xl p-1 border border-slate-800/80 backdrop-blur flex items-center justify-center shadow-inner">
+      <canvas id="audio-visualizer-canvas" class="w-full h-full rounded-lg"></canvas>
+    </div>
+  </main>
+
+  <footer class="relative z-40 bg-slate-900/95 border-t border-slate-800 p-3 sm:p-4 backdrop-blur-2xl">
+    <div class="max-w-5xl mx-auto space-y-3">
+      
+      <!-- Launchpad & Tool Header -->
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs sm:text-sm font-black text-rose-400 flex items-center gap-1.5">
+            <i class="ph-bold ph-faders"></i>
+            蔡徐坤原声音效采样台 (IKUN Launchpad)
+          </span>
+          <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded-md text-slate-400 hidden sm:inline">点击即可实时打碟叠音</span>
+        </div>
+
+        <!-- Custom User Audio Uploader Button -->
+        <label class="cursor-pointer px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sky-400 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:scale-95">
+          <i class="ph-bold ph-upload-simple"></i>
+          <span>自选音频导入替换</span>
+          <input type="file" id="custom-audio-input" accept="audio/*" class="hidden">
+        </label>
+      </div>
+
+      <!-- Launchpad Grid with Authentic Vocal Samples -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+        <!-- Pad 1 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-rose-950/40 border border-slate-700/70 hover:border-rose-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="ngm" data-text="你干嘛~~ 哎呦~~！">
+          <div class="flex items-center justify-between">
+            <span class="text-rose-400 text-lg">🐔</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 1]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">你干嘛 哎呦</div>
+          <div class="text-[10px] text-slate-400">经典灵魂娇嗔原声</div>
+        </button>
+
+        <!-- Pad 2 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-amber-950/40 border border-slate-700/70 hover:border-amber-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="jntm_hook" data-text="只因你太美 Baby~">
+          <div class="flex items-center justify-between">
+            <span class="text-amber-400 text-lg">🎵</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 2]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">鸡你太美！</div>
+          <div class="text-[10px] text-slate-400">标志性副歌Hook</div>
+        </button>
+
+        <!-- Pad 3 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-sky-950/40 border border-slate-700/70 hover:border-sky-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="trainee_intro" data-text="练习时长两年半的个人练习生蔡徐坤">
+          <div class="flex items-center justify-between">
+            <span class="text-sky-400 text-lg">🎤</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 3]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">练习时长两年半</div>
+          <div class="text-[10px] text-slate-400">全民制作人大家好</div>
+        </button>
+
+        <!-- Pad 4 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-emerald-950/40 border border-slate-700/70 hover:border-emerald-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="sing_jump_rap" data-text="喜欢唱、跳、rap、篮球，music！">
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-400 text-lg">🏀</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 4]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">唱跳RAP篮球</div>
+          <div class="text-[10px] text-slate-400">Music 起节奏！</div>
+        </button>
+
+        <!-- Pad 5 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-purple-950/40 border border-slate-700/70 hover:border-purple-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="chicken_foot" data-text="露出鸡脚了吧小黑子！食不食香精煎鱼！">
+          <div class="flex items-center justify-between">
+            <span class="text-purple-400 text-lg">🐾</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 5]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">露出鸡脚了吧</div>
+          <div class="text-[10px] text-slate-400">食不食油饼/荔枝</div>
+        </button>
+
+        <!-- Pad 6 -->
+        <button class="ikun-pad p-2.5 sm:p-3 bg-slate-800/70 hover:bg-pink-950/40 border border-slate-700/70 hover:border-pink-500 rounded-2xl text-left transition active:scale-95 flex flex-col justify-between"
+          data-type="sample" data-id="kunge_awesome" data-text="厉不厉害你坤哥！">
+          <div class="flex items-center justify-between">
+            <span class="text-pink-400 text-lg">👑</span>
+            <span class="text-[10px] font-mono text-slate-500">[PAD 6]</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-slate-200 mt-1">厉不厉害你坤哥</div>
+          <div class="text-[10px] text-slate-400">气场全开高光时刻</div>
+        </button>
+      </div>
+
+      <!-- Danmaku & Interactive Meme Quick Tagger -->
+      <form id="danmaku-form" class="flex gap-2 items-center pt-1">
+        <input type="text" id="danmaku-input" maxlength="26" placeholder="发射IKUN弹幕 (例如：蒸乌鱼、食不食香精煎鱼、荔枝呢)..."
+          class="flex-1 bg-slate-800/90 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 transition">
+        <button type="submit" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 font-bold text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center gap-1">
+          <span>弹幕</span>
+          <i class="ph-bold ph-paper-plane-right"></i>
+        </button>
+        <button type="button" id="btn-throw-lychee" class="px-3 py-2 bg-pink-950/50 hover:bg-pink-900/60 border border-pink-700/50 text-pink-300 font-bold text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center gap-1">
+          <span>🌰 投喂荔枝</span>
+        </button>
+      </form>
+
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================
+       1. ADVANCED AUDIO ENGINE (ONLINE REAL BGM + SYNTHESIS FALLBACK)
+       ========================================================= */
+    class IkunAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.analyser = null;
+        this.sourceNode = null;
+        this.synthLoopTimer = null;
+        this.isBgmPlaying = false;
+        this.usingSynthFallback = false;
+        this.customUserAudioBlobUrl = null;
+
+        // Authentic vocal sample audio elements
+        this.sampleAudioMap = {};
+
+        // Online BGM & Voice clip URLs with automatic fallbacks
+        // Using stable and verified MP3 direct streams & audio data fallbacks
+        this.onlineBgmUrl = "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/jntm_original.mp3";
+        this.altBgmUrl = "https://assets.mixkit.co/music/preview/mixkit-hip-hop-02-738.mp3"; // Fallback funk beat
+
+        // Authentic voice clips links
+        this.sampleUrls = {
+          ngm: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/niganma.mp3",
+          jntm_hook: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/jinitaimei.mp3",
+          trainee_intro: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/liangnianban.mp3",
+          sing_jump_rap: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/changtiaorap.mp3",
+          chicken_foot: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/jijiao.mp3",
+          kunge_awesome: "https://cdn.jsdelivr.net/gh/mumu-osc/audio-assets@main/kunge.mp3"
+        };
+
+        // Real Background Audio Element
+        this.bgmAudio = new Audio();
+        this.bgmAudio.loop = true;
+        this.bgmAudio.crossOrigin = "anonymous";
+
+        // Setup audio element fallbacks
+        this.bgmAudio.addEventListener('error', () => {
+          console.warn("External BGM link error, activating full Web Audio synthesis engine.");
+          this.activateSynthEngine();
+        });
+
+        // Initialize sample instances
+        for (const [key, url] of Object.entries(this.sampleUrls)) {
+          const a = new Audio();
+          a.crossOrigin = "anonymous";
+          a.src = url;
+          this.sampleAudioMap[key] = a;
+        }
+
+        // SWIN 《只因你太美》副歌纯合成旋律表 (Midi Notes, Durations)
+        this.jntmScore = [
+          { note: 60, dur: 0.25 }, // Ca
+          { note: 62, dur: 0.25 }, // i
+          { note: 65, dur: 0.45 }, // 只 (F4)
+          { note: 62, dur: 0.25 }, // 因 (D4)
+          { note: 65, dur: 0.35 }, // 你 (F4)
+          { note: 67, dur: 0.55 }, // 太 (G4)
+          { note: 65, dur: 0.85 }, // 美 (F4~~~)
+          { note: 0,  dur: 0.20 }, // 歇
+          { note: 65, dur: 0.25 }, // ying
+          { note: 67, dur: 0.25 }, // mian
+          { note: 69, dur: 0.40 }, // zou
+          { note: 67, dur: 0.30 }, // lai
+          { note: 65, dur: 0.30 }, // de
+          { note: 62, dur: 0.70 }, // ni
+          { note: 0,  dur: 0.30 }
+        ];
+        this.synthStep = 0;
+      }
+
+      // Initialize Web Audio Context
+      initContext() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+          this.analyser = this.ctx.createAnalyser();
+          this.analyser.fftSize = 128;
+          this.analyser.smoothingTimeConstant = 0.8;
+          this.analyser.connect(this.ctx.destination);
+
+          // Connect background HTML audio to analyser if permitted
+          try {
+            this.sourceNode = this.ctx.createMediaElementSource(this.bgmAudio);
+            this.sourceNode.connect(this.analyser);
+          } catch(e) {
+            // In case of CORS restriction with MediaElementSource, fallback direct play
+            console.log("Audio node routed directly.");
+          }
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      midiToFreq(m) {
+        if (m <= 0) return 0;
+        return 440 * Math.pow(2, (m - 69) / 12);
+      }
+
+      // Web Audio Synthesizer: Plays notes with funky bass
+      playSynthNote(freq, dur, type = 'sawtooth', gainVal = 0.16) {
+        if (!this.ctx || freq <= 0) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const now = this.ctx.currentTime;
+
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          osc.frequency.exponentialRampToValueAtTime(Math.max(20, freq * 0.98), now + dur);
+
+          gain.gain.setValueAtTime(gainVal, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+          osc.connect(gain);
+          gain.connect(this.analyser);
+
+          osc.start(now);
+          osc.stop(now + dur);
+        } catch(e) {
+          console.error(e);
+        }
+      }
+
+      // Basketball Floor Impact Thud
+      playDribbleThud(pitchMult = 1.0) {
+        this.initContext();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const dur = 0.16;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(160 * pitchMult, now);
+        osc.frequency.exponentialRampToValueAtTime(36, now + dur);
+
+        gain.gain.setValueAtTime(0.45, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+        osc.connect(gain);
+        gain.connect(this.analyser);
+        osc.start(now);
+        osc.stop(now + dur);
+      }
+
+      // Chicken '你干嘛' Whine Synthesizer
+      playSquawkSfx() {
+        this.initContext();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.linearRampToValueAtTime(890, now + 0.14);
+        osc.frequency.linearRampToValueAtTime(510, now + 0.32);
+
+        gain.gain.setValueAtTime(0.28, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        osc.connect(gain);
+        gain.connect(this.analyser);
+        osc.start(now);
+        osc.stop(now + 0.36);
+      }
+
+      // Toggle Master BGM (Real track -> User audio -> Synth fallback)
+      toggleMasterBgm() {
+        this.initContext();
+        if (this.isBgmPlaying) {
+          this.stopBgm();
+          return false;
+        } else {
+          this.startBgm();
+          return true;
+        }
+      }
+
+      startBgm() {
+        this.isBgmPlaying = true;
+        // 1. If user loaded their own audio
+        if (this.customUserAudioBlobUrl) {
+          this.bgmAudio.src = this.customUserAudioBlobUrl;
+          this.bgmAudio.play().catch(() => this.activateSynthEngine());
+          this.updateStatusBadge('用户自定义音频', 'text-amber-300', 'border-amber-500/40', 'bg-amber-500/20');
+          return;
+        }
+
+        // 2. Play standard online song
+        this.bgmAudio.src = this.onlineBgmUrl;
+        const playPromise = this.bgmAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            this.usingSynthFallback = false;
+            this.updateStatusBadge('原版只因你太美 · 播放中', 'text-emerald-300', 'border-emerald-500/40', 'bg-emerald-500/20');
+          }).catch(err => {
+            console.warn("Online playback error, falling back to Web Audio Synth", err);
+            this.activateSynthEngine();
+          });
+        }
+      }
+
+      stopBgm() {
+        this.isBgmPlaying = false;
+        this.bgmAudio.pause();
+        if (this.synthLoopTimer) clearTimeout(this.synthLoopTimer);
+      }
+
+      activateSynthEngine() {
+        this.usingSynthFallback = true;
+        this.synthStep = 0;
+        this.updateStatusBadge('Web Audio 合成器模式', 'text-rose-300', 'border-rose-500/40', 'bg-rose-500/20');
+        this.runSynthLoop();
+      }
+
+      runSynthLoop() {
+        if (!this.isBgmPlaying || !this.usingSynthFallback) return;
+        const noteObj = this.jntmScore[this.synthStep];
+        if (noteObj.note > 0) {
+          const f = this.midiToFreq(noteObj.note);
+          this.playSynthNote(f, noteObj.dur, 'sawtooth', 0.16);
+          this.playSynthNote(f / 2, noteObj.dur, 'triangle', 0.22); // Groovy bassline
+        }
+
+        // Dribble drum beat on beat steps
+        if (this.synthStep % 2 === 0) {
+          this.playDribbleThud(0.9);
+        }
+
+        this.synthStep = (this.synthStep + 1) % this.jntmScore.length;
+        this.synthLoopTimer = setTimeout(() => {
+          this.runSynthLoop();
+        }, noteObj.dur * 1000);
+      }
+
+      updateStatusBadge(text, colorTxt, colorBrd, colorBg) {
+        const badge = document.getElementById('audio-source-badge');
+        const badgeText = document.getElementById('audio-source-name');
+        badge.className = `text-[11px] px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 font-medium border ${colorTxt} ${colorBrd} ${colorBg}`;
+        badgeText.innerText = text;
+      }
+
+      // Play vocal sample (with Web Speech API + Audio element dual fallback)
+      playSample(sampleId, backupText) {
+        this.initContext();
+
+        const audioEl = this.sampleAudioMap[sampleId];
+        let playedOnline = false;
+
+        if (audioEl) {
+          audioEl.currentTime = 0;
+          const p = audioEl.play();
+          if (p !== undefined) {
+            p.then(() => { playedOnline = true; }).catch(() => {
+              // Online sample blocked/not found, run speech synthesis
+              this.speakFallback(backupText);
+            });
+          }
+        } else {
+          this.speakFallback(backupText);
+        }
+
+        // Also trigger sound effect thud
+        if (sampleId === 'ngm') {
+          this.playSquawkSfx();
+        } else {
+          this.playDribbleThud(1.3);
+        }
+      }
+
+      speakFallback(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'zh-CN';
+        u.pitch = 1.45; // Characteristic high pitch
+        u.rate = 1.25;  // Fast comic delivery
+        const voices = window.speechSynthesis.getVoices();
+        const zh = voices.find(v => v.lang.includes('zh') || v.lang.includes('cmn'));
+        if (zh) u.voice = zh;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    const engine = new IkunAudioEngine();
+
+    // DOM Elements
+    const charPod = document.getElementById('char-pod');
+    const charSvgBox = document.getElementById('character-svg-box');
+    const ballInteractive = document.getElementById('ball-interactive');
+    const stageQuote = document.getElementById('stage-quote');
+    const comboStat = document.getElementById('combo-stat');
+    const traineeTimer = document.getElementById('trainee-timer');
+    const btnMasterBgm = document.getElementById('btn-master-bgm');
+    const bgmPlayIcon = document.getElementById('bgm-play-icon');
+    const bgmBtnText = document.getElementById('bgm-btn-text');
+    const mainStage = document.getElementById('main-stage');
+    const fxStageLights = document.getElementById('fx-stage-lights');
+    const customAudioInput = document.getElementById('custom-audio-input');
+
+    // Practice Time Incrementer
+    let practiceSec = 0;
+    setInterval(() => {
+      practiceSec++;
+      const m = String(Math.floor(practiceSec / 60)).padStart(2, '0');
+      const s = String(practiceSec % 60).padStart(2, '0');
+      traineeTimer.innerText = `2年半 ${m}:${s}`;
+    }, 1000);
+
+    const vizCanvas = document.getElementById('audio-visualizer-canvas');
+    const vizCtx = vizCanvas.getContext('2d');
+    function resizeCanvas() {
+      vizCanvas.width = vizCanvas.parentElement.clientWidth;
+      vizCanvas.height = vizCanvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function renderVisualizer() {
+      requestAnimationFrame(renderVisualizer);
+      vizCtx.clearRect(0, 0, vizCanvas.width, vizCanvas.height);
+
+      if (!engine.analyser) {
+        // Ambient rhythm line
+        vizCtx.fillStyle = '#475569';
+        for(let i = 0; i < 24; i++) {
+          const barH = 5 + Math.sin(Date.now() * 0.005 + i * 0.4) * 4;
+          const w = vizCanvas.width / 24;
+          vizCtx.fillRect(i * w + 2, vizCanvas.height / 2 - barH / 2, w - 4, barH);
+        }
+        return;
+      }
+
+      const freqData = new Uint8Array(engine.analyser.frequencyBinCount);
+      engine.analyser.getByteFrequencyData(freqData);
+
+      const count = 36;
+      const barWidth = vizCanvas.width / count;
+
+      for (let i = 0; i < count; i++) {
+        const val = freqData[i] || 0;
+        const barHeight = (val / 255) * (vizCanvas.height - 4);
+        const grad = vizCtx.createLinearGradient(0, vizCanvas.height, 0, 0);
+        grad.addColorStop(0, '#f43f5e');
+        grad.addColorStop(0.5, '#fb923c');
+        grad.addColorStop(1, '#38bdf8');
+
+        vizCtx.fillStyle = grad;
+        vizCtx.fillRect(i * barWidth + 1, vizCanvas.height - barHeight, barWidth - 2, barHeight);
+      }
+    }
+    renderVisualizer();
+
+    let combo = 0;
+    let comboResetTimeout = null;
+
+    function showQuote(text) {
+      stageQuote.innerText = text;
+      stageQuote.style.opacity = '1';
+      stageQuote.style.transform = 'translateY(0px)';
+      clearTimeout(stageQuote.timer);
+      stageQuote.timer = setTimeout(() => {
+        stageQuote.style.opacity = '0';
+        stageQuote.style.transform = 'translateY(-10px)';
+      }, 2200);
+    }
+
+    function triggerDribbleAction(e) {
+      combo++;
+      comboStat.innerText = combo + 'x';
+      comboStat.classList.add('scale-125', 'text-rose-400');
+      setTimeout(() => comboStat.classList.remove('scale-125', 'text-rose-400'), 120);
+
+      engine.playDribbleThud(1.0 + (combo % 12) * 0.05);
+
+      // Bounce character slightly
+      charPod.style.transform = `scale(1.08) rotate(${(Math.random() - 0.5) * 8}deg)`;
+      setTimeout(() => charPod.style.transform = 'scale(1) rotate(0deg)', 100);
+
+      // Spark particles
+      spawnSparks(e);
+
+      // Flash disco lights on high combos
+      if (combo % 10 === 0) {
+        fxStageLights.style.opacity = '1';
+        setTimeout(() => fxStageLights.style.opacity = '0', 350);
+        showQuote(`大招连击 x${combo}！厉不厉害你坤哥！`);
+        spawnFlyingChicken();
+      }
+
+      clearTimeout(comboResetTimeout);
+      comboResetTimeout = setTimeout(() => {
+        combo = 0;
+        comboStat.innerText = '0x';
+      }, 2600);
+    }
+
+    function spawnSparks(e) {
+      const x = (e && e.clientX) ? e.clientX : window.innerWidth / 2;
+      const y = (e && e.clientY) ? e.clientY : window.innerHeight / 2;
+
+      for (let i = 0; i < 7; i++) {
+        const p = document.createElement('div');
+        p.className = 'fixed pointer-events-none rounded-full z-50 transition-all duration-500';
+        p.style.width = '8px';
+        p.style.height = '8px';
+        p.style.backgroundColor = ['#f43f5e', '#fbbf24', '#38bdf8', '#c084fc'][Math.floor(Math.random() * 4)];
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        document.body.appendChild(p);
+
+        const destX = (Math.random() - 0.5) * 160;
+        const destY = (Math.random() - 0.5) * 160;
+
+        requestAnimationFrame(() => {
+          p.style.transform = `translate(${destX}px, ${destY}px) scale(0)`;
+          p.style.opacity = '0';
+        });
+
+        setTimeout(() => p.remove(), 500);
+      }
+    }
+
+    // Flying Roast Chickens Effect (暴走特效)
+    function spawnFlyingChicken() {
+      const container = document.getElementById('roast-chickens-box');
+      const item = document.createElement('div');
+      item.className = 'absolute text-4xl';
+      item.innerText = ['🍗', '🐔', '🏀', '🌰', '✨'][Math.floor(Math.random() * 5)];
+      item.style.left = Math.random() * 90 + 'vw';
+      item.style.bottom = '-50px';
+      item.style.animation = 'chickenFloat 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+      container.appendChild(item);
+      setTimeout(() => item.remove(), 2300);
+    }
+
+    // Dynamic Danmaku System
+    const danmakuBox = document.getElementById('danmaku-box');
+    const memeDanmakuPool = [
+      '只因你太美 baby~',
+      '你干嘛~~ 哎呦~~',
+      '香精煎鱼食不食！',
+      '练习时长两年半的个人练习生',
+      '露出鸡脚了吧小黑子',
+      '巅峰产生虚伪的拥护，黄昏见证真正的信徒',
+      '厉不厉害你坤哥！',
+      '再黑我就抱紧啦！',
+      '蒸乌鱼，荔枝呢？',
+      '油饼食不食，苏珊！',
+      '这球技，NBA连夜招揽',
+      '中分头，背带裤，我是坤坤你记住'
+    ];
+
+    function sendDanmaku(text, customStyle = '') {
+      const el = document.createElement('div');
+      el.className = `danmaku-item text-base sm:text-2xl drop-shadow-md ${customStyle}`;
+      el.innerText = text;
+
+      const colors = ['text-rose-400', 'text-amber-300', 'text-sky-300', 'text-emerald-400', 'text-purple-400'];
+      if (!customStyle) el.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+
+      el.style.top = Math.floor(Math.random() * 60 + 10) + '%';
+      const duration = (Math.random() * 3 + 5.5).toFixed(1);
+      el.style.animationDuration = duration + 's';
+
+      danmakuBox.appendChild(el);
+      setTimeout(() => el.remove(), duration * 1000);
+    }
+
+    // Auto stream danmaku
+    setInterval(() => {
+      if (document.hidden) return;
+      const q = memeDanmakuPool[Math.floor(Math.random() * memeDanmakuPool.length)];
+      sendDanmaku(q);
+    }, 2200);
+
+    // Character Poses Switching
+    const poseBtns = document.querySelectorAll('.pose-btn');
+    function setPose(poseClass, btnEl) {
+      charSvgBox.classList.remove('pose-shrug', 'pose-iron', 'pose-dribble');
+      charSvgBox.classList.add(poseClass);
+      poseBtns.forEach(b => {
+        b.classList.remove('bg-rose-600', 'text-white');
+        b.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      if (btnEl) {
+        btnEl.classList.add('bg-rose-600', 'text-white');
+        btnEl.classList.remove('bg-slate-800', 'text-slate-300');
+      }
+    }
+
+    document.getElementById('btn-pose-shrug').addEventListener('click', (e) => {
+      setPose('pose-shrug', e.currentTarget);
+      showQuote('经典耸肩：只因你太美！');
+      engine.playDribbleThud(1.1);
+    });
+
+    document.getElementById('btn-pose-iron').addEventListener('click', (e) => {
+      setPose('pose-iron', e.currentTarget);
+      showQuote('铁山靠暴走！撞碎黑子！');
+      mainStage.classList.add('anim-shake');
+      setTimeout(() => mainStage.classList.remove('anim-shake'), 600);
+      engine.playDribbleThud(1.5);
+    });
+
+    document.getElementById('btn-pose-dribble').addEventListener('click', (e) => {
+      setPose('pose-dribble', e.currentTarget);
+      showQuote('胯下疯狂打桩运球！');
+      engine.playDribbleThud(1.3);
+    });
+
+    // Costume: Sunglasses & Roasted Chicken Mask
+    let costumeStep = 0;
+    const glassesG = document.getElementById('costume-glasses');
+    const combG = document.getElementById('costume-chicken-comb');
+    const faceSkin = document.getElementById('face-skin');
+
+    document.getElementById('btn-toggle-glasses').addEventListener('click', () => {
+      costumeStep = (costumeStep + 1) % 3;
+      engine.playSquawkSfx();
+      if (costumeStep === 0) {
+        glassesG.classList.add('hidden');
+        combG.classList.add('hidden');
+        faceSkin.setAttribute('fill', '#fde047');
+        showQuote('换装：经典练习生原版');
+      } else if (costumeStep === 1) {
+        glassesG.classList.remove('hidden');
+        combG.classList.add('hidden');
+        faceSkin.setAttribute('fill', '#fde047');
+        showQuote('换装：冷酷墨镜潮男！');
+      } else {
+        glassesG.classList.remove('hidden');
+        combG.classList.remove('hidden');
+        faceSkin.setAttribute('fill', '#fb923c');
+        showQuote('换装：香精煎鱼战斗鸡！🐔');
+      }
+    });
+
+    // Meme Sticker: Chicken Foot
+    document.getElementById('btn-meme-sticker').addEventListener('click', () => {
+      sendDanmaku('🐾 警惕小黑子露出鸡脚！', 'text-amber-300 font-black text-2xl');
+      showQuote('露出鸡脚了吧小黑子！');
+      engine.playSample('chicken_foot', '露出鸡脚了吧小黑子');
+      for(let i=0; i<4; i++) setTimeout(spawnFlyingChicken, i * 150);
+    });
+
+    // Lychee feeder
+    document.getElementById('btn-throw-lychee').addEventListener('click', () => {
+      sendDanmaku('🌰 投喂新鲜荔枝！理智，怎么理智！', 'text-pink-400 font-black text-xl');
+      showQuote('你叫我怎么荔枝！');
+      engine.playSquawkSfx();
+    });
+
+    // Click on Basketball & Character
+    ballInteractive.addEventListener('pointerdown', (e) => {
+      triggerDribbleAction(e);
+      e.stopPropagation();
+    });
+
+    charPod.addEventListener('click', (e) => {
+      engine.playSample('ngm', '你干嘛~~ 哎呦~~！');
+      showQuote('你干嘛～～哎呦～～！');
+      triggerDribbleAction(e);
+    });
+
+    // BGM Button Toggle
+    btnMasterBgm.addEventListener('click', () => {
+      const active = engine.toggleMasterBgm();
+      if (active) {
+        bgmPlayIcon.className = 'ph-bold ph-stop-circle text-lg';
+        bgmBtnText.innerText = '暂停只因BGM';
+        btnMasterBgm.classList.add('ring-2', 'ring-rose-400');
+        showQuote('只因你太美！Music 响起！');
+        sendDanmaku('🎵 全体起立！只因你太美！', 'text-rose-400 font-extrabold text-2xl');
+      } else {
+        bgmPlayIcon.className = 'ph-bold ph-play-circle text-lg';
+        bgmBtnText.innerText = '只因你太美 BGM';
+        btnMasterBgm.classList.remove('ring-2', 'ring-rose-400');
+      }
+    });
+
+    // IKUN Launchpad Pads Binding
+    document.querySelectorAll('.ikun-pad').forEach(pad => {
+      pad.addEventListener('click', () => {
+        const id = pad.getAttribute('data-id');
+        const text = pad.getAttribute('data-text');
+
+        // Play Sample
+        engine.playSample(id, text);
+        showQuote(text);
+        sendDanmaku(text);
+
+        // Flash pad
+        pad.classList.add('border-rose-400', 'scale-95');
+        setTimeout(() => pad.classList.remove('border-rose-400', 'scale-95'), 140);
+        spawnFlyingChicken();
+      });
+    });
+
+    // Spacebar Iron Lean Berserk Mode
+    let spaceDown = false;
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !spaceDown && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        spaceDown = true;
+        setPose('pose-iron', document.getElementById('btn-pose-iron'));
+        mainStage.classList.add('anim-shake');
+        fxStageLights.style.opacity = '1';
+        engine.playSample('sing_jump_rap', '唱跳rap篮球');
+        showQuote('铁山靠暴走狂暴模式！');
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+        spaceDown = false;
+        setPose('pose-shrug', document.getElementById('btn-pose-shrug'));
+        mainStage.classList.remove('anim-shake');
+        fxStageLights.style.opacity = '0';
+      }
+    });
+
+    // Custom Audio File Import (IKUN DIY)
+    customAudioInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (engine.customUserAudioBlobUrl) {
+          URL.revokeObjectURL(engine.customUserAudioBlobUrl);
+        }
+        engine.customUserAudioBlobUrl = URL.createObjectURL(file);
+        showQuote(`已加载本地音频: ${file.name.slice(0, 10)}...`);
+        sendDanmaku(`已成功装载专属IKUN神曲！`, 'text-sky-300 font-bold text-xl');
+        engine.stopBgm();
+        engine.startBgm();
+        bgmPlayIcon.className = 'ph-bold ph-stop-circle text-lg';
+        bgmBtnText.innerText = '暂停专属BGM';
+      }
+    });
+
+    // Custom Danmaku Form
+    document.getElementById('danmaku-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('danmaku-input');
+      const val = input.value.trim();
+      if (val) {
+        sendDanmaku(val, 'text-amber-300 text-2xl font-black');
+        showQuote(val);
+        input.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
